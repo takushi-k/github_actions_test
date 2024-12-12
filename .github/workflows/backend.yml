@@ -17,7 +17,19 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16.x
+      - run: ls -la
       - run: npm ci
-      - run: npm run test
+      - run: ls -la      
+      - run: npm run test -- --coverage
       - run: npm run build
-      
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: backend/coverage/**
+          retention-days: 5
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: backend/dist/index.js
+          retention-days: 5
